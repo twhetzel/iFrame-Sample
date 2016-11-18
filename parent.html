@@ -1,0 +1,41 @@
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <div id="test">Parent Test</div>
+    <iframe id="myFrame" width="200px" height="100px" src="page.html"></iframe>
+    </br></br>
+    <button id="myButton">My Parent Button</button>
+    </br></br>
+
+
+<script>
+    // Pass data from Parent to iFrame
+    var test = ("#myFrame", top.document.getElementById("myFrame"));
+
+    // Call fucntion in iFrame
+    $("#myButton").on("click", function () {
+        var theFrameVar = $('#myFrame').get(0).contentWindow.myLocalFunction();
+        console.log(theFrameVar)
+    });
+
+    // Get Post Message from iFrame
+    // Based on: http://stackoverflow.com/questions/22862167/cross-site-iframe-postmessage-from-child-to-parent
+    // Create IE + others compatible event handler
+    var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+    var eventer = window[eventMethod];
+    var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+    // Listen to message from child window
+    eventer(messageEvent,function(e) {
+      console.log('** Parent received message!:  ',e.data);
+    },false);
+
+    function closeIFrame(){
+        $('#myFrame').remove();
+    }
+</script>
+</body>
+</html>
