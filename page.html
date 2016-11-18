@@ -1,0 +1,33 @@
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+    <div id="myDiv">Test Div</div>
+    <button onclick="generateData()">click me</button>
+    <script>
+        var myLocalVariable = "hello";
+        console.log("PageVar: ", myLocalVariable)
+
+        function myLocalFunction () {
+            return "hello-function";
+        }
+    </script>
+
+    <script>
+    //http://stackoverflow.com/questions/22862167/cross-site-iframe-postmessage-from-child-to-parent
+        function generateData() {
+            data = "[{\"1\": \"one\"}, {\"2\": \"two\"}]\"}]"
+            // console.log(data)
+            parent.postMessage("Data for Parent Page: "+data,'*');
+
+            // Close iFrame
+            console.log("Closing iFrame now....")
+            parent.closeIFrame();
+        }
+    </script>
+</body>
+
+</html>
